@@ -1,6 +1,6 @@
 :root {
     --font-ui: 'JetBrains Mono Variable', ui-monospace, monospace;
-    --font-clock: 'Outfit Variable', system-ui, sans-serif;
+    --font-clock: 'JetBrains Mono Variable', ui-monospace, monospace;
     --shadow-strength: 0.6;
 
     --text: #ffffff;
@@ -109,7 +109,7 @@ button {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: clamp(1rem, 2vw, 1.75rem);
-    align-self: end;
+    margin-top: clamp(1.5rem, 10vh, 7rem);
 }
 
 .widget {
@@ -167,10 +167,10 @@ button {
 .clock-time {
     display: block;
     font-family: var(--font-clock);
-    font-size: clamp(4.5rem, 11vw, 9.5rem);
-    font-weight: 300;
+    font-size: clamp(4.5rem, 10vw, 9rem);
+    font-weight: 700;
     line-height: 1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
     font-variant-numeric: tabular-nums;
 }
 

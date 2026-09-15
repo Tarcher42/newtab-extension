@@ -1,13 +1,13 @@
 import type { Command, Groups, Settings, TimerState, WordState } from './types'
 
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 export const DEFAULT_TAG = 'Genel'
 
 export const DEFAULT_SETTINGS: Settings = {
     schemaVersion: SCHEMA_VERSION,
     clock: { h24: true, seconds: false },
     background: { type: 'default', color: '#1e2433', imageVersion: 0 },
-    fonts: { ui: 'JetBrains Mono Variable', clock: 'Outfit Variable' },
+    fonts: { ui: 'JetBrains Mono Variable', clock: 'JetBrains Mono Variable' },
     shadowStrength: 0.6,
     widgetOrder: ['word', 'pomodoro', 'stats'],
     widgetsEnabled: { word: true, pomodoro: true, stats: true },

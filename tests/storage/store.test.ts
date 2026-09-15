@@ -16,7 +16,18 @@ describe('store', () => {
         expect(settings.clock).toEqual({ h24: false, seconds: false })
         expect(settings.pomodoro.workMin).toBe(50)
         expect(settings.pomodoro.shortMin).toBe(5)
-        expect(settings.schemaVersion).toBe(1)
+        expect(settings.schemaVersion).toBe(2)
+    })
+
+    test('v1 settings with the old Outfit clock default move to JetBrains Mono', async () => {
+        const area = memoryArea({ settings: { schemaVersion: 1, fonts: { ui: 'Inter Variable', clock: 'Outfit Variable' } } })
+        const settings = await load(area, 'settings')
+        expect(settings.fonts).toEqual({ ui: 'Inter Variable', clock: 'JetBrains Mono Variable' })
+    })
+
+    test('a custom clock font survives the migration', async () => {
+        const area = memoryArea({ settings: { schemaVersion: 1, fonts: { clock: 'Fira Code' } } })
+        expect((await load(area, 'settings')).fonts.clock).toBe('Fira Code')
     })
 
     test('ignores fields with the wrong type', async () => {

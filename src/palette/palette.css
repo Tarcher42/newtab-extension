@@ -93,7 +93,11 @@
 }
 
 .palette-trigger {
-    min-width: 4.5rem;
+    flex-shrink: 0;
+    width: 6.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     padding: 0.1rem 0.45rem;
     border-radius: 6px;
     font-weight: 600;

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+    <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1b2140" />
+            <stop offset="0.45" stop-color="#4a3a6b" />
+            <stop offset="0.72" stop-color="#c2677a" />
+            <stop offset="0.9" stop-color="#f0a87a" />
+        </linearGradient>
+        <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#ffe2b8" stop-opacity="0.95" />
+            <stop offset="0.35" stop-color="#ffc48f" stop-opacity="0.55" />
+            <stop offset="1" stop-color="#ff9a7a" stop-opacity="0" />
+        </radialGradient>
+        <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#7a5a8c" />
+            <stop offset="1" stop-color="#5b4675" />
+        </linearGradient>
+        <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#46365e" />
+            <stop offset="1" stop-color="#2f2746" />
+        </linearGradient>
+        <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#251d38" />
+            <stop offset="1" stop-color="#140f22" />
+        </linearGradient>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#sky)" />
+    <circle cx="1180" cy="700" r="420" fill="url(#sun)" />
+    <circle cx="1180" cy="700" r="70" fill="#ffe7c4" opacity="0.9" />
+    <g fill="#ffffff" opacity="0.55">
+        <circle cx="220" cy="120" r="1.6" />
+        <circle cx="410" cy="210" r="1.2" />
+        <circle cx="640" cy="90" r="1.4" />
+        <circle cx="880" cy="170" r="1" />
+        <circle cx="1320" cy="80" r="1.5" />
+        <circle cx="1560" cy="190" r="1.1" />
+        <circle cx="1760" cy="110" r="1.4" />
+        <circle cx="120" cy="300" r="1" />
+        <circle cx="1690" cy="320" r="1" />
+    </g>
+    <path d="M0 700 L180 610 L330 660 L520 560 L700 640 L880 580 L1060 650 L1260 560 L1440 630 L1640 570 L1920 660 L1920 1080 L0 1080 Z" fill="url(#far)" opacity="0.85" />
+    <path d="M0 800 L160 720 L300 770 L470 690 L650 780 L840 710 L1020 790 L1210 700 L1400 780 L1600 720 L1780 770 L1920 730 L1920 1080 L0 1080 Z" fill="url(#mid)" />
+    <path d="M0 910 L200 840 L380 900 L560 850 L760 930 L980 860 L1180 940 L1380 870 L1580 930 L1760 880 L1920 920 L1920 1080 L0 1080 Z" fill="url(#near)" />
+</svg>

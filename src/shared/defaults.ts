@@ -6,7 +6,7 @@ export const DEFAULT_TAG = 'Genel'
 export const DEFAULT_SETTINGS: Settings = {
     schemaVersion: SCHEMA_VERSION,
     clock: { h24: true, seconds: false },
-    background: { type: 'default', color: '#1e2433' },
+    background: { type: 'default', color: '#1e2433', imageVersion: 0 },
     fonts: { ui: 'JetBrains Mono Variable', clock: 'Outfit Variable' },
     shadowStrength: 0.6,
     widgetOrder: ['word', 'pomodoro', 'stats'],

@@ -5,7 +5,8 @@ export type Side = 'left' | 'right'
 export type Settings = {
     schemaVersion: number
     clock: { h24: boolean; seconds: boolean }
-    background: { type: 'default' | 'upload' | 'color'; color: string }
+    /** `imageVersion` changes on every upload so open tabs reload the stored image. */
+    background: { type: 'default' | 'upload' | 'color'; color: string; imageVersion: number }
     fonts: { ui: string; clock: string }
     shadowStrength: number
     widgetOrder: WidgetId[]

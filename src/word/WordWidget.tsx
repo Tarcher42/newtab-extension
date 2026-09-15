@@ -54,7 +54,9 @@ export function WordWidget() {
         setDetails(null)
         if (!word) return
         let active = true
-        lookup(word.word, (url) => fetch(url, { credentials: 'omit' }), state.cache).then(async (result) => {
+        // The dictionary service sometimes hangs until Cloudflare gives up; fall back to local data sooner.
+        const fetchWithTimeout = (url: string) => fetch(url, { credentials: 'omit', signal: AbortSignal.timeout(8000) })
+        lookup(word.word, fetchWithTimeout, state.cache).then(async (result) => {
             if (!active) return
             setDetails(result.data)
             if (result.cache !== state.cache) {

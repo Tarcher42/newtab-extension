@@ -30,11 +30,14 @@
     box-sizing: border-box;
 }
 
+html {
+    background: #141022;
+}
+
 html,
 body {
     margin: 0;
     height: 100%;
-    background: #141022;
     color: var(--text);
     font-family: var(--font-ui);
     font-size: 15px;

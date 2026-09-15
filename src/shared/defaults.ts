@@ -30,6 +30,14 @@ export const DEFAULT_COMMANDS: Command[] = [
     { id: 'search-yt', trigger: 'yt', kind: 'search', template: 'https://www.youtube.com/results?search_query={q}', uses: 0 },
 ]
 
-export const DEFAULT_TIMER: TimerState = { phase: 'idle', endsAt: null, pausedRemaining: null, round: 1, tag: DEFAULT_TAG }
+export const DEFAULT_TIMER: TimerState = {
+    phase: 'idle',
+    endsAt: null,
+    pausedRemaining: null,
+    durationMs: null,
+    startedAt: null,
+    round: 1,
+    tag: DEFAULT_TAG,
+}
 
 export const DEFAULT_WORD_STATE: WordState = { known: [], custom: [], today: null, cache: {} }

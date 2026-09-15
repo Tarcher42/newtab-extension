@@ -48,8 +48,15 @@ export type Phase = 'idle' | 'work' | 'short' | 'long'
 
 export type TimerState = {
     phase: Phase
+    /** Set while running. */
     endsAt: number | null
+    /** Set while paused, or when a phase is waiting to be started. */
     pausedRemaining: number | null
+    /** Length of the current phase, fixed when the phase begins. */
+    durationMs: number | null
+    /** First time the current phase was started. */
+    startedAt: number | null
+    /** Work rounds count from 1; a long break follows every `roundsUntilLong`-th round. */
     round: number
     tag: string
 }

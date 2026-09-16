@@ -1,14 +1,14 @@
 # İlerleme
 
-Son güncelleme: 2026-09-16 · Sürüm 0.1.0
+Son güncelleme: 2026-09-16 · Sürüm 0.1.1
 
 ## Durum
 
-Eklentinin adı **DevTab** oldu (kimlik `newtab@ldleader` olarak kaldı, veriler korunuyor). 0.1.0 sürümü AMO'da **unlisted** kanalda imzalandı: `artifacts/DevTab-0.1.1.xpi` normal Firefox/Zen'e kalıcı kurulabiliyor. İmzalama `npm run sign:unlisted` ile yapılıyor, kimlik bilgileri depo dışındaki `../.env.local` dosyasından okunuyor.
+Eklentinin adı **DevTab** oldu; kimlik `newtab@ldleader` olarak kaldığı için mevcut kurulumların verileri korunuyor. 0.1.1 AMO'da **unlisted** kanalda imzalandı, `artifacts/DevTab-0.1.1.xpi` normal Firefox/Zen'e kalıcı kurulabiliyor ve [GitHub sürümünde](https://github.com/Tarcher42/newtab-extension/releases) duruyor. İmzalama `npm run sign:unlisted` ile yapılıyor, kimlik bilgileri depo dışındaki `../.env.local` dosyasından okunuyor.
 
-İlk sürüm tamamlandı ve paketlendi (`../NewTab.xpi`). Sayfa, dev shim ile Chrome'da (agent-browser) ekran görüntüsüyle kontrol edildi; **gerçek Firefox/Zen'de henüz denenmedi.**
+Mağaza (listed) gönderimi hazır ama **henüz gönderilmedi**: `amo-metadata.json` (TR/EN metinler), `npm run source-archive` çıktısı ve `docs/store/` altındaki dört ekran görüntüsü bekliyor. Gönderim `npm run sign:listed` ile yapılacak.
 
-- Testler: 150 geçiyor (`npm test`)
+- Testler: 202 geçiyor (`npm test`)
 - Tip kontrolü temiz (`npm run build`)
 - `web-ext lint`: 0 hata, 1 uyarı (Preact çekirdeğindeki `innerHTML`, zararsız)
 
@@ -46,8 +46,11 @@ Plan: `docs/superpowers/plans/2026-09-16-newtab.md`
 ### Önce bunlar
 - [x] **Firefox/Zen'de gerçek test (2026-09-16):** favicon'lar, komut paleti, veri yedeği ve sekme kapalıyken Pomodoro çalışıyor; bildirim sesi geliyor.
 - [x] **Sözlük:** dictionaryapi.dev çöktü, Wiktionary'ye geçildi.
+- [x] **Kalıcı kurulum (2026-09-16):** AMO unlisted imzası alındı, `.xpi` doğrudan kurulabiliyor.
+- [x] **Ana sayfa (0.1.1):** `chrome_settings_overrides.homepage` eklendi; home tuşu ve yeni pencere de eklentiyi açıyor.
 - [ ] **Wiktionary'yi gerçek eklentide doğrula:** tanım ve örnek cümle geliyor mu, 🔊 sesi çalışıyor mu (Zen'de İngilizce ses paketi kurulu olmayabilir).
-- [ ] **Kalıcı kurulum:** imzasız kurulum (`xpinstall.signatures.required = false`) ya da AMO'da unlisted imzalama (`web-ext sign`).
+- [ ] **Mağaza gönderimi:** metinler ve ekran görüntüleri hazır; `npm run sign:listed` ile gönderilecek, ekran görüntüleri AMO sayfasından elle yüklenecek.
+- [ ] **Otomatik güncelleme:** unlisted sürümler kendiliğinden güncellenmiyor; istenirse `update_url` + GitHub'da `updates.json`.
 
 ### Bilinen kısıt
 - `Ctrl+K` yeni sekme ilk açıldığında çalışmaz (odak adres çubuğunda); sayfaya bir kez tıklamak gerekir.

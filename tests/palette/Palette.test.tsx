@@ -89,7 +89,7 @@ describe('translation', () => {
     })
 })
 
-test('an online translation replaces the local guess', async () => {
+test('a phrase is translated by the online service', async () => {
     const online = 'merhaba (çevrimiçi)'
     vi.stubGlobal(
         'fetch',

@@ -222,6 +222,8 @@ function TranslateSection({ command, commands, onSave }: { command: Command; com
             <h3>Çeviri</h3>
             <p class="hint">
                 Palette <strong>{command.trigger} metin</strong> yaz: sonuç listede görünür, Enter panoya kopyalar, Ctrl+Enter çeviri sitesinde açar.
+                Yön kendiliğinden belirlenir (İngilizce ↔ Türkçe). Başka bir dil için dil kodu ekle:{' '}
+                <strong>{command.trigger} es merhaba</strong> ya da <strong>{command.trigger} en-de hello</strong>.
             </p>
             <label class="field">
                 Tetikleyici

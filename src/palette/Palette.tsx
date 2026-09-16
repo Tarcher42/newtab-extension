@@ -88,7 +88,7 @@ export function Palette({ commands, translateOnline, onRun, onOpenUrl }: Props) 
         if (!parsed.query) return shake()
         onRun(command, parsed.query, newTab)
         if (newTab || !translation.text) {
-            onOpenUrl(buildTranslateUrl(command.template ?? '', parsed.query, translation.direction), true)
+            onOpenUrl(buildTranslateUrl(command.template ?? '', translation.input, translation.direction), true)
             return
         }
         navigator.clipboard

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'preact/hooks'
+import { FlameIcon } from '../newtab/icons'
 import { dayKey, formatDuration } from '../shared/time'
 import { useStored } from '../storage/useStored'
 import { dailyTotals, heatmap, streak, tooltip } from './logic'
@@ -67,7 +68,9 @@ export function StatsWidget() {
                 </span>
             </div>
             <div class="stats-summary">
-                <span class={days > 0 ? 'streak is-active' : 'streak'}>🔥 {days} gün seri</span>
+                <span class={days > 0 ? 'streak is-active' : 'streak'}>
+                    <FlameIcon /> {days} gün seri
+                </span>
                 <span>Bugün {formatDuration(todayMinutes)}</span>
             </div>
         </section>

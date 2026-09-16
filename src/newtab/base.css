@@ -3,15 +3,28 @@
     --font-clock: 'JetBrains Mono Variable', ui-monospace, monospace;
     --shadow-strength: 0.6;
 
-    --text: #ffffff;
-    --text-dim: rgb(255 255 255 / 0.72);
-    --text-faint: rgb(255 255 255 / 0.5);
-    --accent: #ffb88a;
-    --danger: #ff8a8a;
+    /* Catppuccin Mocha */
+    --ctp-base: #1e1e2e;
+    --ctp-crust: #11111b;
+    --ctp-surface0: #313244;
+    --ctp-overlay2: #9399b2;
+    --ctp-subtext1: #bac2de;
+    --ctp-text: #cdd6f4;
+    --ctp-blue: #89b4fa;
+    --ctp-green: #a6e3a1;
+    --ctp-yellow: #f9e2af;
+    --ctp-peach: #fab387;
+    --ctp-red: #f38ba8;
 
-    --glass-bg: rgb(22 20 36 / 0.32);
-    --glass-bg-strong: rgb(22 20 36 / 0.62);
-    --glass-border: rgb(255 255 255 / 0.14);
+    --text: var(--ctp-text);
+    --text-dim: var(--ctp-subtext1);
+    --text-faint: var(--ctp-overlay2);
+    --accent: var(--ctp-peach);
+    --danger: var(--ctp-red);
+
+    --glass-bg: rgb(30 30 46 / 0.34);
+    --glass-bg-strong: rgb(30 30 46 / 0.68);
+    --glass-border: rgb(205 214 244 / 0.14);
     --glass-blur: 18px;
     --radius: 18px;
     --radius-sm: 10px;
@@ -248,6 +261,25 @@ button {
 
 .btn-danger {
     color: var(--danger);
+}
+
+.icon-button {
+    display: grid;
+    place-items: center;
+    padding: 0.3rem;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: var(--text-dim);
+    font-size: 1rem;
+    transition: background 0.15s, color 0.15s;
+}
+
+.icon-button:hover,
+.icon-button:focus-visible {
+    background: rgb(205 214 244 / 0.12);
+    color: var(--text);
+    outline: none;
 }
 
 .input {

@@ -27,6 +27,9 @@ Plan: `docs/superpowers/plans/2026-09-16-newtab.md`
 - [x] Kelime widget'ında "Bugün" / "Öğrendiklerim" sekmeleri; bilinen kelimeler tarihiyle listeleniyor ve geri alınabiliyor
 - [x] Ayarlarda kelime tarayıcısı: Tümü / Bilinenler / Kendi kelimelerim filtresi, arama, 50'şerli sayfalama
 - [x] Isı haritasına renk skalası ve tıklayınca sabitlenen gün bilgisi
+- [x] İkonlar Lucide setine geçti (ISC), emoji kullanılan yerler (🔊, 🔥) ikon oldu. Catppuccin'in kendi depolarında arayüz ikonu yok, yalnızca editör dosya ikonları var
+- [x] Renkler Catppuccin Mocha paletine bağlandı (`--ctp-*` değişkenleri)
+- [x] Öğrendiklerim listesinde kelimeye tıklayınca detay açılıyor; her satırda ve detayda çöp kutusu var
 - [x] Ayarlar paneli: Görünüm, Kısayollar, Komutlar, Widget'lar, Veri
 - [x] Arka plan: varsayılan SVG / yüklenen görsel / düz renk
 - [x] Fontlar gömülü (sadece latin + latin-ext)

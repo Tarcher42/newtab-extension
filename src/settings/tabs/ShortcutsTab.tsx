@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'preact/hooks'
-import { RemoveIcon } from '../../newtab/icons'
+import { TrashIcon } from '../../newtab/icons'
 import type { Shortcut, Side } from '../../shared/types'
 import { addShortcut, MAX_PER_GROUP, removeShortcut, updateShortcut } from '../../shortcuts/logic'
 import { ShortcutEditor } from '../../shortcuts/ShortcutEditor'
@@ -47,7 +47,7 @@ export function ShortcutsTab() {
                                             aria-label={`${s.title} sil`}
                                             onClick={() => setGroups(removeShortcut(groups, s.id))}
                                         >
-                                            <RemoveIcon />
+                                            <TrashIcon />
                                         </button>
                                     </li>
                                 ))}

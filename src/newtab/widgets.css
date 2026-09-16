@@ -263,11 +263,61 @@
     color: var(--text-faint);
 }
 
-.known-restore {
-    width: 100%;
-    margin: 0.15rem 0 0.35rem;
-    padding: 0.3em 0.6em;
+.known-item {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    border-radius: 7px;
+}
+
+.known-item:hover {
+    background: rgb(205 214 244 / 0.08);
+}
+
+.known-remove {
+    flex-shrink: 0;
+    opacity: 0.45;
+    color: var(--text-faint);
+    font-size: 0.9rem;
+}
+
+.known-item:hover .known-remove,
+.known-remove:focus-visible {
+    opacity: 1;
+}
+
+.known-remove:hover {
+    color: var(--danger);
+}
+
+.word-back {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.15rem 0.4rem 0.15rem 0.2rem;
+    border: 0;
+    border-radius: 7px;
+    background: none;
+    color: var(--text-faint);
     font-size: 0.8rem;
+}
+
+.word-back:hover {
+    background: rgb(205 214 244 / 0.1);
+    color: var(--text);
+}
+
+.known-detail-foot {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.known-detail-foot .btn {
+    gap: 0.35em;
 }
 
 .word-text {

@@ -1,30 +1,17 @@
 import { useEffect, useMemo, useState } from 'preact/hooks'
 import { dayKey } from '../shared/time'
-import type { DictionaryData } from '../shared/types'
-import { update } from '../storage/store'
-import { useStorageArea, useStored } from '../storage/useStored'
+import { useStored } from '../storage/useStored'
 import { KnownList } from './KnownList'
 import { loadWordList } from './list'
 import { advanceWord, knownEntries, markKnown, pool, removeKnown, todayWord, type WordList } from './logic'
-import { lookup } from './wiktionary'
+import { WordDetail } from './WordDetail'
 
 export const WORD_NEXT_EVENT = 'newtab:word-next'
 
-/** Pronunciation comes from the browser's own voices, so it needs no network and no extra permission. */
-function speak(word: string) {
-    if (!('speechSynthesis' in window)) return
-    const utterance = new SpeechSynthesisUtterance(word)
-    utterance.lang = 'en-US'
-    speechSynthesis.cancel()
-    speechSynthesis.speak(utterance)
-}
-
 export function WordWidget() {
-    const area = useStorageArea()
     const [state, setState, loaded] = useStored('word')
     const [settings] = useStored('settings')
     const [list, setList] = useState<WordList | null>(null)
-    const [details, setDetails] = useState<DictionaryData | null>(null)
     const [tab, setTab] = useState<'today' | 'known'>('today')
     const day = dayKey(new Date())
 
@@ -51,24 +38,6 @@ export function WordWidget() {
         return () => window.removeEventListener(WORD_NEXT_EVENT, onNext)
     }, [state, words, day])
 
-    useEffect(() => {
-        setDetails(null)
-        if (!word) return
-        let active = true
-        const fetchWithTimeout = (url: string) => fetch(url, { credentials: 'omit', signal: AbortSignal.timeout(8000) })
-        lookup(word.word, fetchWithTimeout, state.cache).then(async (result) => {
-            if (!active) return
-            setDetails(result.data)
-            if (result.cache !== state.cache) {
-                const key = word.word.trim().toLocaleLowerCase('en-US')
-                await update(area, 'word', (s) => ({ ...s, cache: { ...s.cache, [key]: result.cache[key] } }))
-            }
-        })
-        return () => {
-            active = false
-        }
-    }, [word?.word])
-
     const entries = useMemo(() => knownEntries(state, list, state.custom), [state.known, list, state.custom])
 
     return (
@@ -87,7 +56,7 @@ export function WordWidget() {
             </div>
 
             {tab === 'known' ? (
-                <KnownList entries={entries} onRestore={(w) => setState(removeKnown(state, w))} />
+                <KnownList entries={entries} onRemove={(w) => setState(removeKnown(state, w))} />
             ) : !list ? null : !word ? (
                 <>
                     <p class="word-empty">Bu seviyedeki tüm kelimeleri biliyorsun 🎉</p>
@@ -95,26 +64,7 @@ export function WordWidget() {
                 </>
             ) : (
                 <>
-                    <div class="word-head">
-                        <span class="word-text" lang="en">
-                            {word.word}
-                        </span>
-                        <button type="button" class="word-audio" aria-label="Telaffuzu dinle" onClick={() => speak(word.word)}>
-                            🔊
-                        </button>
-                    </div>
-                    <div class="word-meaning">{word.meaning}</div>
-                    {details?.definition && (
-                        <p class="word-definition" lang="en">
-                            {details.partOfSpeech && <span class="word-pos">{details.partOfSpeech}</span>}
-                            {details.definition}
-                        </p>
-                    )}
-                    {details?.example && (
-                        <p class="word-example" lang="en">
-                            “{details.example}”
-                        </p>
-                    )}
+                    <WordDetail word={word.word} meaning={word.meaning} />
                     <div class="word-actions">
                         <button type="button" class="btn" onClick={() => setState(markKnown(state, words, word.word, day, Date.now()))}>
                             Biliyorum

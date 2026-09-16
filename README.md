@@ -43,7 +43,11 @@ Geçici eklentiler tarayıcı kapanınca kaldırılır. Kalıcı kullanım için
 
 ## Lisans
 
-GPL-3.0. Arayüz ikonları ve site ikonu kutusunun ölçüleri [Bonjourr](https://github.com/victorazevedo-me/Bonjourr)'dan (GPL-3.0) alınmıştır.
+GPL-3.0.
+
+- Arayüz ikonları: [Lucide](https://lucide.dev) (ISC), gerekli ikonlar `src/newtab/icons.tsx` içine gömülü
+- Renkler: [Catppuccin Mocha](https://github.com/catppuccin/catppuccin) paleti (MIT)
+- Site ikonu kutusunun ölçüleri [Bonjourr](https://github.com/victorazevedo-me/Bonjourr)'dan (GPL-3.0) alınmıştır
 
 Kelime listeleri `tools/build-words.mjs` ile üretilir:
 

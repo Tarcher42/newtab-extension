@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks'
-import { RemoveIcon } from '../../newtab/icons'
+import { TrashIcon } from '../../newtab/icons'
 import { ACTION_LABELS, describeCommand } from '../../palette/actions'
 import { validateTrigger, type TriggerCheck } from '../../palette/logic'
 import { newId } from '../../shared/id'
@@ -65,7 +65,7 @@ export function CommandsTab() {
                                     aria-label={`${c.trigger} sil`}
                                     onClick={() => setCommands(commands.filter((x) => x.id !== c.id))}
                                 >
-                                    <RemoveIcon />
+                                    <TrashIcon />
                                 </button>
                             </li>
                         ),

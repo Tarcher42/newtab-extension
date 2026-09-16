@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks'
-import { RemoveIcon } from '../../newtab/icons'
+import { TrashIcon } from '../../newtab/icons'
 import type { Level, Settings, WidgetId, Word } from '../../shared/types'
 import { useStored } from '../../storage/useStored'
 import { loadWordList } from '../../word/list'
@@ -114,7 +114,7 @@ export function WidgetsTab() {
                                     aria-label={`${w.word} sil`}
                                     onClick={() => setWord({ ...word, custom: word.custom.filter((c) => c.word !== w.word) })}
                                 >
-                                    <RemoveIcon />
+                                    <TrashIcon />
                                 </button>
                             </li>
                         ))}

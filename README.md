@@ -1,6 +1,8 @@
-# NewTab
+# DevTab
 
-Firefox yeni sekme eklentisi: komut paleti, saat, iki site kısayol grubu, Pomodoro, çalışma ısı haritası ve günün kelimesi.
+Firefox yeni sekme eklentisi: komut paleti, çeviri, saat, iki site kısayol grubu, Pomodoro, çalışma ısı haritası ve günün kelimesi.
+
+Mozilla tarafından imzalı sürüm: [Releases](https://github.com/Tarcher42/newtab-extension/releases) sayfasındaki `DevTab-0.1.0.xpi`.
 
 ## Özellikler
 
@@ -25,12 +27,30 @@ npm run pack      # artifacts/ altına .zip üretir
 
 ## Firefox / Zen'e yükleme
 
-1. `npm run build`
-2. `about:debugging#/runtime/this-firefox` → **Geçici Eklenti Yükle…**
-3. `dist/manifest.json` dosyasını seç.
-4. Yeni bir sekme aç. Firefox eklentinin yeni sekmeyi değiştirmesini onaylamanı isteyebilir.
+**İmzalı sürüm (kalıcı, önerilen):**
 
-Geçici eklentiler tarayıcı kapanınca kaldırılır. Kalıcı kullanım için imzasız eklentiye izin veren bir sürüm (Developer Edition / Nightly / Zen'de `xpinstall.signatures.required = false`) ile `npm run pack` çıktısını `.xpi` olarak yükleyebilirsin.
+1. [Releases](https://github.com/Tarcher42/newtab-extension/releases) sayfasından `DevTab-0.1.0.xpi` dosyasını indir.
+2. `about:addons` → dişli ikonu → **Dosyadan Eklenti Yükle** → indirdiğin dosyayı seç.
+3. Yeni bir sekme aç. Firefox, eklentinin yeni sekmeyi değiştirmesini onaylamanı isteyebilir.
+
+Dosya Mozilla tarafından imzalandığı için normal Firefox ve Zen'de çalışır, `xpinstall.signatures.required` ayarına dokunmaya gerek yoktur.
+
+**Geliştirirken:**
+
+1. `npm run build`
+2. `about:debugging#/runtime/this-firefox` → **Geçici Eklenti Yükle…** → `dist/manifest.json`
+3. Kod değişince aynı sayfadaki **Yeniden yükle** butonuna bas.
+
+Geçici eklentiler tarayıcı kapanınca kaldırılır.
+
+## Yayınlama
+
+```bash
+npm run sign:unlisted   # imzalı .xpi üretir (artifacts/)
+npm run sign:listed     # addons.mozilla.org listesine sürüm gönderir
+```
+
+Kimlik bilgileri depo dışındaki `../.env.local` dosyasından okunur (`AMO_JWT_ISSUER`, `AMO_JWT_SECRET`); anahtarlar https://addons.mozilla.org/developers/addon/api/key/ adresinden alınır ve depoya girmez.
 
 ## İzinler
 

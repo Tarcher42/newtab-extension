@@ -4,6 +4,8 @@ Son güncelleme: 2026-09-16 · Sürüm 0.1.0
 
 ## Durum
 
+Eklentinin adı **DevTab** oldu (kimlik `newtab@ldleader` olarak kaldı, veriler korunuyor). 0.1.0 sürümü AMO'da **unlisted** kanalda imzalandı: `artifacts/DevTab-0.1.0.xpi` normal Firefox/Zen'e kalıcı kurulabiliyor. İmzalama `npm run sign:unlisted` ile yapılıyor, kimlik bilgileri depo dışındaki `../.env.local` dosyasından okunuyor.
+
 İlk sürüm tamamlandı ve paketlendi (`../NewTab.xpi`). Sayfa, dev shim ile Chrome'da (agent-browser) ekran görüntüsüyle kontrol edildi; **gerçek Firefox/Zen'de henüz denenmedi.**
 
 - Testler: 150 geçiyor (`npm test`)

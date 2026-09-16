@@ -1,4 +1,4 @@
 {
-    "extName": { "message": "NewTab" },
+    "extName": { "message": "DevTab" },
     "extDescription": { "message": "Command palette, site shortcuts, Pomodoro, study heatmap and word of the day." }
 }

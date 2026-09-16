@@ -13,6 +13,7 @@
         "lint:ext": "web-ext lint --source-dir dist",
         "start": "web-ext run --source-dir dist",
         "pack": "web-ext build --source-dir dist --artifacts-dir artifacts --overwrite-dest",
+        "source-archive": "git archive --format=zip --prefix=devtab/ -o artifacts/DevTab-source.zip HEAD",
         "sign:unlisted": "node tools/sign.mjs unlisted",
         "sign:listed": "node tools/sign.mjs listed"
     },

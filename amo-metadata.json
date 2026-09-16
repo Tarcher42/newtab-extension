@@ -1,0 +1,19 @@
+{
+    "categories": ["tabs"],
+    "summary": {
+        "en-US": "A new tab page with a command palette, translation, Pomodoro, a study heatmap and a word of the day.",
+        "tr": "Komut paleti, çeviri, Pomodoro, çalışma ısı haritası ve günün kelimesi olan bir yeni sekme sayfası."
+    },
+    "description": {
+        "en-US": "DevTab replaces the new tab page with the things a developer or student opens all day.\n\n• Command palette (Ctrl+K): links, searches, built-in actions and translation, all editable in settings.\n• Translation: type \"tr hello\" and the result appears in the palette. Enter copies it, Ctrl+Enter opens your translation site. Language codes work too: \"tr es merhaba\", \"tr en-de hello\".\n• Site shortcuts: two groups of up to ten sites with automatic icons.\n• Pomodoro: runs in the background, so it keeps going when the tab is closed, and notifies you when a phase ends. Sessions can be tagged.\n• Study heatmap: the last 18 weeks of study time with a streak counter.\n• Word of the day: 3000 English words with Turkish meanings, definitions from Wiktionary, pronunciation from your browser's own voice, and a list of the words you have marked as known.\n• Settings: background image or colour, fonts, clock format, widget order, and JSON backup.\n\nEverything is stored on your own machine. Nothing is sent anywhere unless you use online translation, which can be turned off.",
+        "tr": "DevTab, yeni sekme sayfasını bir geliştiricinin ya da öğrencinin gün boyu açtığı şeylerle değiştirir.\n\n• Komut paleti (Ctrl+K): linkler, aramalar, hazır eylemler ve çeviri. Hepsi ayarlardan düzenlenebilir.\n• Çeviri: \"tr hello\" yaz, sonuç palette görünür. Enter panoya kopyalar, Ctrl+Enter çeviri sitesinde açar. Dil kodu da yazabilirsin: \"tr es merhaba\", \"tr en-de hello\".\n• Site kısayolları: iki grup, grup başına on site, ikonlar otomatik gelir.\n• Pomodoro: arka planda çalışır, sekmeyi kapatsan da devam eder, süre bitince bildirim gönderir. Oturumlara etiket verebilirsin.\n• Çalışma ısı haritası: son 18 haftanın çalışma süresi ve seri sayacı.\n• Günün kelimesi: Türkçe anlamlarıyla 3000 İngilizce kelime, Wiktionary tanımları, tarayıcının kendi sesiyle telaffuz ve öğrendiklerin listesi.\n• Ayarlar: arka plan görseli ya da rengi, yazı tipleri, saat biçimi, widget sırası ve JSON yedekleme.\n\nHer şey kendi bilgisayarında saklanır. Çevrimiçi çeviriyi kullanmadığın sürece hiçbir yere veri gitmez; o özellik de kapatılabilir."
+    },
+    "homepage": {
+        "en-US": "https://github.com/Tarcher42/newtab-extension"
+    },
+    "support_url": {
+        "en-US": "https://github.com/Tarcher42/newtab-extension/issues"
+    },
+    "is_experimental": false,
+    "requires_payment": false
+}

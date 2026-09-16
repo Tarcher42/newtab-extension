@@ -63,6 +63,24 @@ Kimlik bilgileri depo dışındaki `../.env.local` dosyasından okunur (`AMO_JWT
 | `en.wiktionary.org` | Kelimenin İngilizce tanımı ve örnek cümlesi |
 | `api.mymemory.translated.net` | Palette yerel listede bulunmayan metinlerin çevirisi (ayarlardan kapatılabilir) |
 
+## Build instructions (for AMO reviewers)
+
+The submitted `dist/` is produced from this source with Vite. No obfuscation is used.
+
+- OS: Windows 11 (any OS with Node works)
+- Node: 24.11.1, npm: 11.11.1
+
+```bash
+npm install
+npm run build     # type-check, then bundle into dist/
+```
+
+`dist/` then contains `manifest.json`, `newtab.html`, `background.js`, `assets/` (bundled JS, CSS and fonts),
+`words/` (word lists), `_locales/` and `icons/`. `npm run pack` zips that folder; that zip is the submitted package.
+
+Third party sources used at build time (`tools/build-words.mjs`, run only when the word lists are regenerated):
+FreeDict eng-tur (GPL-2.0+) and the OpenSubtitles frequency list (MIT).
+
 ## Lisans
 
 GPL-3.0.

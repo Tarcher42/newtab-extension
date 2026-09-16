@@ -56,6 +56,18 @@ const args = [
     secret,
 ]
 
+// A listed version is reviewed by people: it carries the store texts and, because dist/
+// is built with Vite, the readable source it was built from.
+if (channel === 'listed') {
+    const metadata = join(ROOT, 'amo-metadata.json')
+    const source = join(ROOT, 'artifacts', 'DevTab-source.zip')
+    if (!existsSync(source)) {
+        console.error('Kaynak arşivi yok. Önce: npm run source-archive')
+        process.exit(1)
+    }
+    args.push('--amo-metadata', metadata, '--upload-source-code', source)
+}
+
 console.log(`AMO'ya gönderiliyor · kanal: ${channel}`)
 const child = spawn('npx', args, { cwd: ROOT, stdio: 'inherit', shell: process.platform === 'win32' })
 child.on('exit', (code) => process.exit(code ?? 1))

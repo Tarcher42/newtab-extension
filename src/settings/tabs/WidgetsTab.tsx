@@ -1,7 +1,10 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import { RemoveIcon } from '../../newtab/icons'
 import type { Level, Settings, WidgetId, Word } from '../../shared/types'
 import { useStored } from '../../storage/useStored'
+import { loadWordList } from '../../word/list'
+import type { WordList } from '../../word/logic'
+import { WordBrowser } from './WordBrowser'
 
 const WIDGET_LABELS: Record<WidgetId, string> = { word: 'Günün kelimesi', pomodoro: 'Pomodoro', stats: 'Çalışma istatistiği' }
 const LEVELS: Level[] = ['A1', 'A2', 'B1', 'B2', 'C1']
@@ -9,6 +12,14 @@ const LEVELS: Level[] = ['A1', 'A2', 'B1', 'B2', 'C1']
 export function WidgetsTab() {
     const [settings, setSettings] = useStored('settings')
     const [word, setWord] = useStored('word')
+    const [list, setList] = useState<WordList | null>(null)
+
+    useEffect(() => {
+        loadWordList()
+            .then(setList)
+            .catch(() => setList(null))
+    }, [])
+
     const set = (patch: Partial<Settings>) => setSettings({ ...settings, ...patch })
     const p = settings.pomodoro
     const setPomodoro = (patch: Partial<Settings['pomodoro']>) => set({ pomodoro: { ...p, ...patch } })
@@ -120,6 +131,11 @@ export function WidgetsTab() {
                         Bilinenleri sıfırla
                     </button>
                 </div>
+            </section>
+
+            <section class="settings-section">
+                <h3>Kelime listesi</h3>
+                <WordBrowser state={word} list={list} onChange={setWord} />
             </section>
         </>
     )

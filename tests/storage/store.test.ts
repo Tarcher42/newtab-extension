@@ -74,7 +74,7 @@ describe('backup', () => {
         expect(await importData(target, json)).toEqual({ ok: true })
         expect((await load(target, 'groups')).left[0].title).toBe('GitHub')
         const word = await load(target, 'word')
-        expect(word.known).toEqual(['apple'])
+        expect(word.known).toEqual([{ word: 'apple', at: null }])
         expect(word.cache).toEqual({})
     })
 

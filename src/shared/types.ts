@@ -67,14 +67,16 @@ export type Session = { start: number; minutes: number; tag: string }
 export type Word = { word: string; meaning: string; level: Level }
 
 export type DictionaryData = {
-    phonetic?: string
-    audio?: string
+    partOfSpeech?: string
     definition?: string
     example?: string
 }
 
+/** `at` is null for words marked known before dates were recorded. */
+export type KnownWord = { word: string; at: number | null }
+
 export type WordState = {
-    known: string[]
+    known: KnownWord[]
     custom: Word[]
     today: { date: string; word: string } | null
     cache: Record<string, DictionaryData>

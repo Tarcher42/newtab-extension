@@ -21,7 +21,12 @@ Plan: `docs/superpowers/plans/2026-09-16-newtab.md`
 - [x] Site kısayolları: sol/sağ grup, grup başına 10, sütun sütun doluş, sağ tık menüsü, favicon zinciri (DuckDuckGo → Google → baş harf), önbellek
 - [x] Pomodoro: arka plan zamanlayıcı (`alarms`), bildirim, üretilmiş ses, etiketler, yarım oturum kaydı
 - [x] Çalışma istatistiği: 18 haftalık ısı haritası, etiket tooltip'i, seri
-- [x] Günün kelimesi: A1–C1 ~1450 kelime (Türkçe anlam), Biliyorum / Sonraki, özel kelimeler, sözlük önbelleği ve 8 sn zaman aşımı
+- [x] Günün kelimesi: A1–C1 3000 kelime (Türkçe anlam), Biliyorum / Sonraki, özel kelimeler, sözlük önbelleği ve 8 sn zaman aşımı
+- [x] Kelime verisi `tools/build-words.mjs` ile üretiliyor: anlamlar FreeDict eng-tur (GPL-2.0+), seviyeler OpenSubtitles sıklık listesinden (MIT). AnkiWeb desteleri lisanssız olduğu için kullanılmadı
+- [x] Sözlük kaynağı Wiktionary REST API oldu (dictionaryapi.dev çöktü); telaffuz tarayıcının `speechSynthesis`'inden, ek izin yok
+- [x] Kelime widget'ında "Bugün" / "Öğrendiklerim" sekmeleri; bilinen kelimeler tarihiyle listeleniyor ve geri alınabiliyor
+- [x] Ayarlarda kelime tarayıcısı: Tümü / Bilinenler / Kendi kelimelerim filtresi, arama, 50'şerli sayfalama
+- [x] Isı haritasına renk skalası ve tıklayınca sabitlenen gün bilgisi
 - [x] Ayarlar paneli: Görünüm, Kısayollar, Komutlar, Widget'lar, Veri
 - [x] Arka plan: varsayılan SVG / yüklenen görsel / düz renk
 - [x] Fontlar gömülü (sadece latin + latin-ext)
@@ -31,8 +36,9 @@ Plan: `docs/superpowers/plans/2026-09-16-newtab.md`
 ## Açık kalanlar
 
 ### Önce bunlar
-- [ ] **Firefox/Zen'de gerçek test:** sekme kapalıyken Pomodoro sürüyor mu, bildirim + ses geliyor mu, favicon'lar geliyor mu, host izinleri açık mı.
-- [ ] **Sözlük API'si:** dictionaryapi.dev tarayıcı kaynaklı isteklere 522 döndürüyordu (curl'de `Origin` başlığıyla da 522). Eklentide de çalışmazsa kaynağı değiştir (aday: Wiktionary REST API). Şu an widget yerel veriye düşüyor.
+- [x] **Firefox/Zen'de gerçek test (2026-09-16):** favicon'lar, komut paleti, veri yedeği ve sekme kapalıyken Pomodoro çalışıyor; bildirim sesi geliyor.
+- [x] **Sözlük:** dictionaryapi.dev çöktü, Wiktionary'ye geçildi.
+- [ ] **Wiktionary'yi gerçek eklentide doğrula:** tanım ve örnek cümle geliyor mu, 🔊 sesi çalışıyor mu (Zen'de İngilizce ses paketi kurulu olmayabilir).
 - [ ] **Kalıcı kurulum:** imzasız kurulum (`xpinstall.signatures.required = false`) ya da AMO'da unlisted imzalama (`web-ext sign`).
 
 ### Bilinen kısıt

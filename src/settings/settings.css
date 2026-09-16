@@ -80,6 +80,7 @@
 
 .settings-body {
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 1rem 1.2rem 1.5rem;
     display: grid;
     align-content: start;
@@ -176,6 +177,7 @@ input[type='color'] {
 .item {
     display: flex;
     align-items: center;
+    min-width: 0;
     gap: 0.5rem;
     padding: 0.45rem 0.55rem;
     border-radius: var(--radius-sm);
@@ -201,6 +203,13 @@ input[type='color'] {
 .item-sub {
     color: var(--text-faint);
     font-size: 0.78rem;
+}
+
+.settings-section > .segmented,
+.settings-section > .input,
+.item > .btn {
+    flex-shrink: 0;
+    max-width: 100%;
 }
 
 .icon-btn {

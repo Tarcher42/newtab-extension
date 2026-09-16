@@ -126,6 +126,27 @@
     color: var(--text-dim);
 }
 
+.stats-legend {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.72rem;
+    color: var(--text-faint);
+}
+
+.stats-legend .heatmap-cell {
+    width: 9px;
+    height: 9px;
+    aspect-ratio: auto;
+}
+
+.stats-legend-today {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-left: auto;
+}
+
 .stats-summary {
     margin-top: auto;
     display: flex;
@@ -156,10 +177,97 @@
     color: #bfe2ff;
 }
 
+.word-tabs {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: -0.2rem;
+}
+
+.word-tabs button {
+    padding: 0.2rem 0.55rem;
+    border: 0;
+    border-radius: 7px;
+    background: none;
+    color: var(--text-faint);
+    font-size: 0.8rem;
+}
+
+.word-tabs button[aria-selected='true'] {
+    background: rgb(255 255 255 / 0.12);
+    color: var(--text);
+}
+
 .word-head {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.word-pos {
+    margin-right: 0.4em;
+    padding: 0 0.35em;
+    border-radius: 5px;
+    background: rgb(255 255 255 / 0.1);
+    font-size: 0.75em;
+    text-transform: lowercase;
+}
+
+.known-count {
+    font-size: 0.8rem;
+    color: var(--text-faint);
+}
+
+.known-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+    flex: 1;
+    display: grid;
+    align-content: start;
+    gap: 0.15rem;
+}
+
+.known-row {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.3rem 0.4rem;
+    border: 0;
+    border-radius: 7px;
+    background: none;
+    text-align: left;
+}
+
+.known-row:hover {
+    background: rgb(255 255 255 / 0.08);
+}
+
+.known-word {
+    font-weight: 600;
+}
+
+.known-meaning {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+.known-date {
+    font-size: 0.75rem;
+    color: var(--text-faint);
+}
+
+.known-restore {
+    width: 100%;
+    margin: 0.15rem 0 0.35rem;
+    padding: 0.3em 0.6em;
+    font-size: 0.8rem;
 }
 
 .word-text {

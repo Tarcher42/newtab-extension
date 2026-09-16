@@ -1,5 +1,6 @@
 import { DEFAULT_COMMANDS, DEFAULT_GROUPS, DEFAULT_SETTINGS, DEFAULT_TIMER, DEFAULT_WORD_STATE } from '../shared/defaults'
 import type { Command, FaviconCache, Groups, Session, Settings, TimerState, WordState } from '../shared/types'
+import { normalizeKnown } from '../word/logic'
 import type { StorageArea } from './area'
 import { migrateSettings } from './migrate'
 
@@ -75,6 +76,10 @@ export function normalize<K extends StoreKey>(key: K, raw: unknown): StoreShape[
             return (Array.isArray(raw) ? raw : fallback) as StoreShape[K]
         case 'favicons':
             return (isObject(raw) ? raw : fallback) as StoreShape[K]
+        case 'word': {
+            const merged = mergeDefaults(fallback as StoreShape['word'], raw)
+            return { ...merged, known: normalizeKnown((raw as Record<string, unknown>).known) } as StoreShape[K]
+        }
         default:
             return mergeDefaults(fallback, raw)
     }

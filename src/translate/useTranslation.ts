@@ -40,7 +40,9 @@ export function useTranslation(query: string, online: boolean): TranslationState
     useEffect(() => {
         setRemote(null)
         setLoading(false)
-        if (!text || local || cached !== undefined || !online) return
+        // The bundled dictionary has the odd broken gloss, so a local hit is only a first
+        // guess: when the online service is available it is asked as well and wins.
+        if (!text || cached !== undefined || !online) return
 
         let active = true
         setLoading(true)
@@ -59,11 +61,11 @@ export function useTranslation(query: string, online: boolean): TranslationState
     }, [text, direction.from, local, cached, online])
 
     if (!text) return { text: null, direction, source: null, loading: false, failed: false }
-    if (local) return { text: local, direction, source: 'local', loading: false, failed: false }
     if (cached !== undefined) return { text: cached, direction, source: 'online', loading: false, failed: false }
+    if (remote?.query === text && remote.text) return { text: remote.text, direction, source: 'online', loading: false, failed: false }
+    // A local hit is shown right away, even while the online lookup is still running.
+    if (local) return { text: local, direction, source: 'local', loading, failed: false }
     if (loading) return { text: null, direction, source: null, loading: true, failed: false }
-    if (remote?.query === text) {
-        return { text: remote.text, direction, source: remote.text ? 'online' : null, loading: false, failed: !remote.text }
-    }
+    if (remote?.query === text) return { text: null, direction, source: null, loading: false, failed: true }
     return { text: null, direction, source: null, loading: false, failed: !online }
 }

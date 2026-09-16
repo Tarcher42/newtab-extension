@@ -88,3 +88,21 @@ describe('translation', () => {
         await waitFor(() => expect(screen.getByText(/Ctrl\+Enter ile sitede aç/)).toBeTruthy())
     })
 })
+
+test('an online translation replaces the local guess', async () => {
+    const online = 'merhaba (çevrimiçi)'
+    vi.stubGlobal(
+        'fetch',
+        vi.fn(async (url: string) =>
+            url.includes('mymemory')
+                ? new Response(JSON.stringify({ responseStatus: 200, responseData: { translatedText: online } }), { status: 200 })
+                : Promise.reject(new TypeError('word lists are not served in tests')),
+        ),
+    )
+    const { input } = setup(true)
+    fireEvent.focus(input)
+    fireEvent.input(input, { target: { value: 'tr hello' } })
+    await waitFor(() => expect(screen.getByText((text) => text.startsWith(online))).toBeTruthy(), { timeout: 3000 })
+    expect(screen.getByText((text) => text.endsWith('çevrimiçi'))).toBeTruthy()
+    vi.unstubAllGlobals()
+})

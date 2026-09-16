@@ -2,7 +2,7 @@
 
 Firefox yeni sekme eklentisi: komut paleti, çeviri, saat, iki site kısayol grubu, Pomodoro, çalışma ısı haritası ve günün kelimesi.
 
-Mozilla tarafından imzalı sürüm: [Releases](https://github.com/Tarcher42/newtab-extension/releases) sayfasındaki `DevTab-0.1.0.xpi`.
+Mozilla tarafından imzalı sürüm: [Releases](https://github.com/Tarcher42/newtab-extension/releases) sayfasındaki `DevTab-0.1.1.xpi`.
 
 ## Özellikler
 
@@ -29,7 +29,7 @@ npm run pack      # artifacts/ altına .zip üretir
 
 **İmzalı sürüm (kalıcı, önerilen):**
 
-1. [Releases](https://github.com/Tarcher42/newtab-extension/releases) sayfasından `DevTab-0.1.0.xpi` dosyasını indir.
+1. [Releases](https://github.com/Tarcher42/newtab-extension/releases) sayfasından `DevTab-0.1.1.xpi` dosyasını indir.
 2. `about:addons` → dişli ikonu → **Dosyadan Eklenti Yükle** → indirdiğin dosyayı seç.
 3. Yeni bir sekme aç. Firefox, eklentinin yeni sekmeyi değiştirmesini onaylamanı isteyebilir.
 

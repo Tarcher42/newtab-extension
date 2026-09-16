@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "__MSG_extName__",
     "description": "__MSG_extDescription__",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "default_locale": "tr",
     "icons": {
         "48": "icons/icon-48.png",
@@ -10,6 +10,9 @@
     },
     "chrome_url_overrides": {
         "newtab": "newtab.html"
+    },
+    "chrome_settings_overrides": {
+        "homepage": "newtab.html"
     },
     "background": {
         "scripts": ["background.js"],

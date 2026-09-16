@@ -116,6 +116,14 @@
     color: #c7f0b0;
 }
 
+.palette-trigger.kind-translate {
+    color: var(--ctp-mauve, #cba6f7);
+}
+
+.palette-item.is-translation .palette-desc {
+    color: var(--text);
+}
+
 .palette-desc {
     overflow: hidden;
     white-space: nowrap;

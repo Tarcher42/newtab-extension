@@ -13,7 +13,10 @@ export const DEFAULT_SETTINGS: Settings = {
     widgetsEnabled: { word: true, pomodoro: true, stats: true },
     pomodoro: { workMin: 25, shortMin: 5, longMin: 15, roundsUntilLong: 4, sound: true, autoStart: false },
     wordLevel: 'B1',
+    translateOnline: true,
 }
+
+export const TRANSLATE_TEMPLATE = 'https://translate.yandex.com/?source_lang={from}&target_lang={to}&text={q}'
 
 export const DEFAULT_GROUPS: Groups = { left: [], right: [] }
 
@@ -24,6 +27,7 @@ export const DEFAULT_COMMANDS: Command[] = [
     { id: 'act-tag', trigger: 'tag', kind: 'action', actionId: 'pomodoro.tag', uses: 0 },
     { id: 'act-word', trigger: 'word', kind: 'action', actionId: 'word.next', uses: 0 },
     { id: 'act-settings', trigger: 'settings', kind: 'action', actionId: 'settings.open', uses: 0 },
+    { id: 'translate', trigger: 'tr', kind: 'translate', template: TRANSLATE_TEMPLATE, uses: 0 },
     { id: 'link-gh', trigger: 'gh', kind: 'link', url: 'https://github.com', uses: 0 },
     { id: 'link-3000', trigger: '3000', kind: 'link', url: 'http://localhost:3000', uses: 0 },
     { id: 'search-g', trigger: 'g', kind: 'search', template: 'https://www.google.com/search?q={q}', uses: 0 },

@@ -5,6 +5,7 @@ Firefox yeni sekme eklentisi: komut paleti, saat, iki site kısayol grubu, Pomod
 ## Özellikler
 
 - **Komut paleti** — `Ctrl+K` veya `/`. Link (`gh`), arama (`yt lofi`) ve hazır eylem (`pomo`, `skip`, `tag React`, `word`, `settings`) komutları. Komutlar Ayarlar → Komutlar'dan düzenlenir.
+- **Çeviri** — `tr hello world` yazınca çeviri palette görünür. Enter panoya kopyalar, `Ctrl+Enter` çeviri sitesinde açar. Tek kelimeler eklentideki listeden anında gelir, cümleler MyMemory'ye sorulur; yön (EN↔TR) otomatik belirlenir. Ayarlar → Komutlar → Çeviri bölümünden kapatılabilir.
 - **Site kısayolları** — sol ve sağ grup, grup başına 10 site. İkonlar otomatik gelir; sağ tık ile düzenle / sil / ikon değiştir.
 - **Pomodoro** — arka planda çalışır, sekme kapansa da devam eder. Süre bitince bildirim ve ses. Oturumlara etiket verilebilir.
 - **Çalışma istatistiği** — son 18 haftanın ısı haritası, günlük etiket dağılımı ve seri sayacı.
@@ -40,6 +41,7 @@ Geçici eklentiler tarayıcı kapanınca kaldırılır. Kalıcı kullanım için
 | `notifications` | Süre bitti bildirimi |
 | `icons.duckduckgo.com`, `www.google.com` | Site ikonları. Servisler eksik ikon için 404 ile yer tutucu görsel döndürdüğünden durum kodu okunabilsin diye ikonlar `fetch` ile alınır |
 | `en.wiktionary.org` | Kelimenin İngilizce tanımı ve örnek cümlesi |
+| `api.mymemory.translated.net` | Palette yerel listede bulunmayan metinlerin çevirisi (ayarlardan kapatılabilir) |
 
 ## Lisans
 

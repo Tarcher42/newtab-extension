@@ -23,18 +23,20 @@ export function rankCommands(commands: Command[], text: string): Command[] {
         .map((entry) => entry.command)
 }
 
-export type CommandGroups = { action: Command[]; link: Command[]; search: Command[] }
+export type CommandGroups = { action: Command[]; translate: Command[]; link: Command[]; search: Command[] }
 
 export function groupCommands(commands: Command[]): CommandGroups {
     const byTrigger = (a: Command, b: Command) => a.trigger.localeCompare(b.trigger)
-    return {
-        action: commands.filter((c) => c.kind === 'action').sort(byTrigger),
-        link: commands.filter((c) => c.kind === 'link').sort(byTrigger),
-        search: commands.filter((c) => c.kind === 'search').sort(byTrigger),
-    }
+    const ofKind = (kind: Command['kind']) => commands.filter((c) => c.kind === kind).sort(byTrigger)
+    return { action: ofKind('action'), translate: ofKind('translate'), link: ofKind('link'), search: ofKind('search') }
 }
 
-export type Resolution = { type: 'url'; url: string } | { type: 'action'; actionId: ActionId; arg: string } | { type: 'invalid' }
+export type Resolution =
+    | { type: 'url'; url: string }
+    | { type: 'action'; actionId: ActionId; arg: string }
+    /** The palette itself handles translation, since it already has the result on screen. */
+    | { type: 'translate' }
+    | { type: 'invalid' }
 
 export function resolveCommand(command: Command, query: string): Resolution {
     switch (command.kind) {
@@ -50,6 +52,8 @@ export function resolveCommand(command: Command, query: string): Resolution {
                 return { type: 'invalid' }
             }
         }
+        case 'translate':
+            return { type: 'translate' }
         case 'action':
             return command.actionId ? { type: 'action', actionId: command.actionId, arg: query } : { type: 'invalid' }
     }

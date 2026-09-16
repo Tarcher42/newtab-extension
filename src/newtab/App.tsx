@@ -40,13 +40,19 @@ export function App() {
     const closeMenu = useCallback(() => setMenu(null), [])
     const closeSettings = useCallback(() => setSettingsTab(null), [])
 
+    function openUrl(url: string, newTab: boolean) {
+        if (newTab) void browser.tabs.create({ url })
+        else window.location.assign(url)
+    }
+
     function onRun(command: Command, query: string, newTab: boolean) {
         const resolution = resolveCommand(command, query)
         if (resolution.type === 'invalid') return
         setCommands(recordUse(commands, command.id))
+        // Translation is shown and copied inside the palette; nothing to open here.
+        if (resolution.type === 'translate') return
         if (resolution.type === 'url') {
-            if (newTab) void browser.tabs.create({ url: resolution.url })
-            else window.location.assign(resolution.url)
+            openUrl(resolution.url, newTab)
             return
         }
         runAction(resolution.actionId, resolution.arg, {
@@ -68,7 +74,7 @@ export function App() {
         <>
             <Background background={settings.background} />
             <main class="page" data-testid="page">
-                <Palette commands={commands} onRun={onRun} />
+                <Palette commands={commands} translateOnline={settings.translateOnline} onRun={onRun} onOpenUrl={openUrl} />
                 <div class="hero">
                     <ShortcutGroup side="left" shortcuts={groups.left} onAdd={(side) => setEditor({ side })} onContextMenu={openMenu} />
                     <Clock clock={settings.clock} />

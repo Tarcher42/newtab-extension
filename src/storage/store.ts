@@ -12,6 +12,7 @@ export type StoreShape = {
     sessions: Session[]
     word: WordState
     favicons: FaviconCache
+    translations: Record<string, string>
 }
 
 export type StoreKey = keyof StoreShape
@@ -24,6 +25,7 @@ const DEFAULTS: StoreShape = {
     sessions: [],
     word: DEFAULT_WORD_STATE,
     favicons: {},
+    translations: {},
 }
 
 export const STORE_KEYS = Object.keys(DEFAULTS) as StoreKey[]
@@ -48,11 +50,13 @@ function mergeDefaults<T>(base: T, raw: unknown): T {
     return out as T
 }
 
-/** Built-in actions can be renamed but never removed. */
-function withBuiltInActions(commands: Command[]): Command[] {
-    const missing = DEFAULT_COMMANDS.filter(
-        (def) => def.kind === 'action' && !commands.some((c) => c.kind === 'action' && c.actionId === def.actionId),
-    )
+/** Built-in commands (actions and translation) can be renamed but never removed. */
+function withBuiltInCommands(commands: Command[]): Command[] {
+    const missing = DEFAULT_COMMANDS.filter((def) => {
+        if (def.kind === 'action') return !commands.some((c) => c.kind === 'action' && c.actionId === def.actionId)
+        if (def.kind === 'translate') return !commands.some((c) => c.kind === 'translate')
+        return false
+    })
     return [...commands, ...structuredClone(missing)]
 }
 
@@ -71,7 +75,7 @@ export function normalize<K extends StoreKey>(key: K, raw: unknown): StoreShape[
             } as StoreShape[K]
         }
         case 'commands':
-            return (Array.isArray(raw) ? withBuiltInActions(raw as Command[]) : fallback) as StoreShape[K]
+            return (Array.isArray(raw) ? withBuiltInCommands(raw as Command[]) : fallback) as StoreShape[K]
         case 'sessions':
             return (Array.isArray(raw) ? raw : fallback) as StoreShape[K]
         case 'favicons':

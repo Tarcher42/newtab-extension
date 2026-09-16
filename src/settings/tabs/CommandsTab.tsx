@@ -2,6 +2,7 @@ import { useState } from 'preact/hooks'
 import { TrashIcon } from '../../newtab/icons'
 import { ACTION_LABELS, describeCommand } from '../../palette/actions'
 import { validateTrigger, type TriggerCheck } from '../../palette/logic'
+import { TRANSLATE_TEMPLATE } from '../../shared/defaults'
 import { newId } from '../../shared/id'
 import type { Command } from '../../shared/types'
 import { normalizeUrl } from '../../shortcuts/logic'
@@ -17,7 +18,10 @@ export function CommandsTab() {
     const [commands, setCommands] = useStored('commands')
     const [editing, setEditing] = useState<Command | 'new' | null>(null)
     const actions = commands.filter((c) => c.kind === 'action')
-    const custom = commands.filter((c) => c.kind !== 'action').sort((a, b) => a.trigger.localeCompare(b.trigger))
+    const translate = commands.find((c) => c.kind === 'translate')
+    const custom = commands
+        .filter((c) => c.kind === 'link' || c.kind === 'search')
+        .sort((a, b) => a.trigger.localeCompare(b.trigger))
 
     const replace = (next: Command) => setCommands(commands.map((c) => (c.id === next.id ? next : c)))
 
@@ -75,6 +79,8 @@ export function CommandsTab() {
                     Arama komutlarında aranan metnin geleceği yere <code>{'{q}'}</code> yaz. Örnek: https://www.google.com/search?q={'{q}'}
                 </p>
             </section>
+
+            {translate && <TranslateSection command={translate} commands={commands} onSave={replace} />}
 
             <section class="settings-section">
                 <h3>Hazır eylemler</h3>
@@ -158,7 +164,13 @@ function CommandForm({ initial, commands, onSave, onCancel }: FormProps) {
                     Arama
                 </button>
             </div>
-            <input class="input" value={trigger} placeholder="Tetikleyici (ör. npm)" aria-label="Tetikleyici" onInput={(e) => setTrigger(e.currentTarget.value)} />
+            <input
+                class="input"
+                value={trigger}
+                placeholder="Tetikleyici (ör. npm)"
+                aria-label="Komut tetikleyicisi"
+                onInput={(e) => setTrigger(e.currentTarget.value)}
+            />
             <input
                 class="input"
                 value={target}
@@ -180,5 +192,79 @@ function CommandForm({ initial, commands, onSave, onCancel }: FormProps) {
                 </button>
             </div>
         </form>
+    )
+}
+
+function TranslateSection({ command, commands, onSave }: { command: Command; commands: Command[]; onSave: (c: Command) => void }) {
+    const [settings, setSettings] = useStored('settings')
+    const [trigger, setTrigger] = useState(command.trigger)
+    const [template, setTemplate] = useState(command.template ?? TRANSLATE_TEMPLATE)
+    const [error, setError] = useState<string | null>(null)
+
+    function commitTrigger() {
+        if (trigger === command.trigger) return setError(null)
+        const check = validateTrigger(commands, trigger, command.id)
+        if (check !== 'ok') return setError(TRIGGER_ERRORS[check])
+        setError(null)
+        onSave({ ...command, trigger: trigger.trim() })
+    }
+
+    function commitTemplate() {
+        const next = template.trim()
+        if (next === command.template) return setError(null)
+        if (!next.includes('{q}')) return setError('Çeviri adresi {q} içermeli.')
+        setError(null)
+        onSave({ ...command, template: next })
+    }
+
+    return (
+        <section class="settings-section">
+            <h3>Çeviri</h3>
+            <p class="hint">
+                Palette <strong>{command.trigger} metin</strong> yaz: sonuç listede görünür, Enter panoya kopyalar, Ctrl+Enter çeviri sitesinde açar.
+            </p>
+            <label class="field">
+                Tetikleyici
+                <input
+                    class="input"
+                    value={trigger}
+                    aria-label="Çeviri tetikleyicisi"
+                    onInput={(e) => setTrigger(e.currentTarget.value)}
+                    onBlur={commitTrigger}
+                    onKeyDown={(e) => e.key === 'Enter' && commitTrigger()}
+                />
+            </label>
+            <label class="field">
+                Çeviri sitesi
+                <input
+                    class="input"
+                    value={template}
+                    aria-label="Çeviri sitesi adresi"
+                    onInput={(e) => setTemplate(e.currentTarget.value)}
+                    onBlur={commitTemplate}
+                    onKeyDown={(e) => e.key === 'Enter' && commitTemplate()}
+                />
+            </label>
+            <p class="hint">
+                <code>{'{q}'}</code> metnin yerine, <code>{'{from}'}</code> ve <code>{'{to}'}</code> dil kodlarının yerine geçer.
+            </p>
+            <label class="toggle">
+                Çevrimiçi çeviriyi kullan
+                <input
+                    type="checkbox"
+                    checked={settings.translateOnline}
+                    onChange={(e) => setSettings({ ...settings, translateOnline: e.currentTarget.checked })}
+                />
+            </label>
+            <p class="hint">
+                Kapalıyken yalnızca eklentideki kelime listesi kullanılır ve hiçbir yere istek gitmez. Açıkken tek kelimeler yine yerelden gelir,
+                bulunamayanlar ve cümleler MyMemory servisine sorulur.
+            </p>
+            {error && (
+                <p class="error" role="alert">
+                    {error}
+                </p>
+            )}
+        </section>
     )
 }

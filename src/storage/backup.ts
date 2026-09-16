@@ -20,7 +20,7 @@ export async function exportData(area: StorageArea): Promise<string> {
 const isObject = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v)
 const isShortcut = (v: unknown) => isObject(v) && typeof v.id === 'string' && typeof v.url === 'string' && typeof v.title === 'string'
 const isCommand = (v: unknown) =>
-    isObject(v) && typeof v.trigger === 'string' && ['link', 'search', 'action'].includes(v.kind as string)
+    isObject(v) && typeof v.trigger === 'string' && ['link', 'search', 'action', 'translate'].includes(v.kind as string)
 const isSession = (v: unknown) => isObject(v) && typeof v.start === 'number' && typeof v.minutes === 'number'
 
 function validate(data: Record<string, unknown>): string | null {

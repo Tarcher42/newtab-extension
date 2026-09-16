@@ -1,35 +1,47 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import type { Command } from '../shared/types'
+import { buildTranslateUrl, directionLabel } from '../translate/logic'
+import { useTranslation } from '../translate/useTranslation'
 import { describeCommand } from './actions'
 import { groupCommands, parseInput, rankCommands } from './logic'
 import './palette.css'
 
 type Props = {
     commands: Command[]
+    translateOnline: boolean
     onRun: (command: Command, query: string, newTab: boolean) => void
+    onOpenUrl: (url: string, newTab: boolean) => void
 }
 
 type Row = { kind: 'header'; label: string } | { kind: 'command'; command: Command; index: number }
 
-const GROUP_LABELS = { action: 'Eylemler', link: 'Linkler', search: 'Aramalar' } as const
+const GROUP_LABELS = { action: 'Eylemler', translate: 'Çeviri', link: 'Linkler', search: 'Aramalar' } as const
 
 const isTypingTarget = (el: EventTarget | null) =>
     el instanceof HTMLElement && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName))
 
-export function Palette({ commands, onRun }: Props) {
+export function Palette({ commands, translateOnline, onRun, onOpenUrl }: Props) {
     const inputRef = useRef<HTMLInputElement>(null)
     const listRef = useRef<HTMLUListElement>(null)
     const [text, setText] = useState('')
     const [focused, setFocused] = useState(false)
     const [selected, setSelected] = useState(0)
     const [shaking, setShaking] = useState(false)
+    const [copied, setCopied] = useState(false)
+
+    const parsed = parseInput(text)
+    const translateCommand = useMemo(
+        () => commands.find((c) => c.kind === 'translate' && c.trigger.toLocaleLowerCase('tr-TR') === parsed.trigger.toLocaleLowerCase('tr-TR')),
+        [commands, parsed.trigger],
+    )
+    const translation = useTranslation(translateCommand ? parsed.query : '', translateOnline)
 
     const rows = useMemo<Row[]>(() => {
         if (text.trim()) return rankCommands(commands, text).map((command, index) => ({ kind: 'command', command, index }))
         const groups = groupCommands(commands)
         const out: Row[] = []
         let index = 0
-        for (const key of ['action', 'link', 'search'] as const) {
+        for (const key of ['action', 'translate', 'link', 'search'] as const) {
             if (!groups[key].length) continue
             out.push({ kind: 'header', label: GROUP_LABELS[key] })
             for (const command of groups[key]) out.push({ kind: 'command', command, index: index++ })
@@ -39,7 +51,10 @@ export function Palette({ commands, onRun }: Props) {
 
     const items = rows.filter((r): r is Extract<Row, { kind: 'command' }> => r.kind === 'command')
 
-    useEffect(() => setSelected(0), [text])
+    useEffect(() => {
+        setSelected(0)
+        setCopied(false)
+    }, [text])
 
     useEffect(() => {
         const onKey = (e: KeyboardEvent) => {
@@ -68,9 +83,24 @@ export function Palette({ commands, onRun }: Props) {
         requestAnimationFrame(() => setShaking(true))
     }
 
+    /** Enter copies the translation and keeps the palette open; Ctrl+Enter opens the translation site. */
+    function runTranslate(command: Command, newTab: boolean) {
+        if (!parsed.query) return shake()
+        onRun(command, parsed.query, newTab)
+        if (newTab || !translation.text) {
+            onOpenUrl(buildTranslateUrl(command.template ?? '', parsed.query, translation.direction), true)
+            return
+        }
+        navigator.clipboard
+            .writeText(translation.text)
+            .then(() => setCopied(true))
+            .catch(() => shake())
+    }
+
     function run(command: Command | undefined, newTab: boolean) {
         if (!command) return shake()
-        onRun(command, parseInput(text).query, newTab)
+        if (command.kind === 'translate') return runTranslate(command, newTab)
+        onRun(command, parsed.query, newTab)
         close()
     }
 
@@ -87,6 +117,18 @@ export function Palette({ commands, onRun }: Props) {
             e.preventDefault()
             close()
         }
+    }
+
+    function describe(command: Command): string {
+        if (command !== translateCommand) return describeCommand(command)
+        if (!parsed.query) return describeCommand(command)
+        if (copied && translation.text) return `${translation.text} · kopyalandı`
+        if (translation.loading) return 'çevriliyor…'
+        if (translation.text) {
+            const source = translation.source === 'local' ? 'yerel liste' : 'çevrimiçi'
+            return `${translation.text} · ${directionLabel(translation.direction)} · ${source}`
+        }
+        return translateOnline ? 'çeviri alınamadı · Ctrl+Enter ile sitede aç' : 'yerel listede yok · Ctrl+Enter ile sitede aç'
     }
 
     const open = focused
@@ -130,7 +172,7 @@ export function Palette({ commands, onRun }: Props) {
                                     key={row.command.id}
                                     role="option"
                                     aria-selected={row.index === selected}
-                                    class="palette-item"
+                                    class={`palette-item${row.command === translateCommand && parsed.query ? ' is-translation' : ''}`}
                                     onMouseEnter={() => setSelected(row.index)}
                                     onMouseDown={(e) => {
                                         e.preventDefault()
@@ -138,7 +180,7 @@ export function Palette({ commands, onRun }: Props) {
                                     }}
                                 >
                                     <span class={`palette-trigger kind-${row.command.kind}`}>{row.command.trigger}</span>
-                                    <span class="palette-desc">{describeCommand(row.command)}</span>
+                                    <span class="palette-desc">{describe(row.command)}</span>
                                 </li>
                             ),
                         )}

@@ -48,6 +48,7 @@ const hostOf = (url: string | undefined) => {
 
 export function describeCommand(command: Command): string {
     if (command.kind === 'action') return command.actionId ? ACTION_LABELS[command.actionId] : ''
+    if (command.kind === 'translate') return 'Çeviri — tr <metin>'
     if (command.kind === 'search') return `${hostOf(command.template)} · arama`
     return hostOf(command.url)
 }

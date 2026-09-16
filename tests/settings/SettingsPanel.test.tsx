@@ -22,7 +22,7 @@ test('switching to 12-hour clock saves settings', async () => {
 test('a new command with a taken trigger shows an error', async () => {
     const area = setup('commands')
     fireEvent.click(screen.getByText('Yeni komut'))
-    fireEvent.input(screen.getByLabelText('Tetikleyici'), { target: { value: 'gh' } })
+    fireEvent.input(screen.getByLabelText('Komut tetikleyicisi'), { target: { value: 'gh' } })
     fireEvent.input(screen.getByLabelText('Adres'), { target: { value: 'gitlab.com' } })
     fireEvent.click(screen.getByText('Kaydet'))
     expect(screen.getByRole('alert').textContent).toBe('Bu tetikleyici zaten kullanılıyor.')
@@ -33,7 +33,7 @@ test('adding a search command stores its template', async () => {
     const area = setup('commands')
     fireEvent.click(screen.getByText('Yeni komut'))
     fireEvent.click(screen.getByText('Arama'))
-    fireEvent.input(screen.getByLabelText('Tetikleyici'), { target: { value: 'npm' } })
+    fireEvent.input(screen.getByLabelText('Komut tetikleyicisi'), { target: { value: 'npm' } })
     fireEvent.input(screen.getByLabelText('Arama adresi'), { target: { value: 'https://www.npmjs.com/search?q={q}' } })
     fireEvent.click(screen.getByText('Kaydet'))
     await waitFor(() => {

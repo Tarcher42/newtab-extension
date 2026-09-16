@@ -20,6 +20,8 @@ export type Settings = {
         autoStart: boolean
     }
     wordLevel: Level
+    /** When off, the palette translates only with the bundled word lists. */
+    translateOnline: boolean
 }
 
 export type ShortcutIcon = { type: 'auto' | 'url' | 'upload' | 'letter'; value?: string }
@@ -38,7 +40,7 @@ export type ActionId = 'pomodoro.toggle' | 'pomodoro.reset' | 'pomodoro.skip' | 
 export type Command = {
     id: string
     trigger: string
-    kind: 'link' | 'search' | 'action'
+    kind: 'link' | 'search' | 'action' | 'translate'
     url?: string
     template?: string
     actionId?: ActionId

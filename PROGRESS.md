@@ -36,6 +36,8 @@ Plan: `docs/superpowers/plans/2026-09-16-newtab.md`
 - [x] Dev shim: `npx vite` ile sayfa normal tarayıcıda açılabiliyor
 - [x] Görsel düzeltmeler: büyük kısayollar, widget'lar aşağıda, kalın JetBrains Mono saat
 
+- [x] Komut paletinde çeviri: `tr <metin>`, yerel liste + MyMemory, otomatik yön tespiti, Enter kopyalar / Ctrl+Enter Yandex'te açar, ayarlardan kapatılabilir
+
 ## Açık kalanlar
 
 ### Önce bunlar
